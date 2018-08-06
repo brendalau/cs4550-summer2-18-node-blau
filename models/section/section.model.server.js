@@ -2,7 +2,6 @@ const mongoose = require('mongoose');
 const sectionSchema = require('./section.schema.server');
 
 const sectionModel = mongoose.model('SectionModel', sectionSchema);
-const userModel = require('../user/user.model.server');
 
 findAllSections = () =>
     sectionModel.find();
@@ -10,19 +9,31 @@ findAllSections = () =>
 findAllSectionsForCourse = courseId =>
     sectionModel.find({courseId: courseId});
 
-createSection = section =>
-    sectionModel.create(section);
+findSectionById = sectionId =>
+    sectionModel.findById(sectionId);
 
-enroll = (userId, sectionId) =>
-    userModel.findUserById(userId)
-        .then(user => {
-            user.sections.push(sectionId);
-            return user.save();
-        })
+createSection = (section) => {
+    return sectionModel.create(section);
+}
+
+updateSection = (sectionId, newSection) => {
+    return sectionModel.update({_id: sectionId}, {
+        $set: {
+            title: newSection.title,
+            seats: newSection.seats
+        }
+    });
+}
+
+deleteSection = (sectionId) => {
+    return sectionModel.remove({_id: sectionId});
+}
 
 module.exports = {
-    enroll,
     findAllSections,
     findAllSectionsForCourse,
-    createSection
+    findSectionById,
+    createSection,
+    updateSection,
+    deleteSection
 };
