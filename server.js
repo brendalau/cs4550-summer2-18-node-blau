@@ -21,7 +21,7 @@ app.use(session({
                 }));
 
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/cs4550-summer-2018', { useNewUrlParser: true });
+mongoose.connect('mongodb://locagitlhost:27017/cs4550-summer-2018', { useNewUrlParser: true });
 
 const userService = require('./services/user.service.server');
 userService(app);
@@ -29,4 +29,4 @@ userService(app);
 const sectionService = require('./services/section.service.server');
 sectionService(app);
 
-app.listen(3000);
+app.listen(process.env.PORT || 3000);
