@@ -4,7 +4,7 @@ var session = require('express-session')
 var bodyParser = require('body-parser')
 
 app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "http://localhost:4200");
+    res.header("Access-Control-Allow-Origin", "https://cs4550-summer2-18-angular-blau.herokuapp.com/");
     res.header("Access-Control-Allow-Credentials", "true");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     res.header("Access-Control-Allow-Methods", "POST, GET, PUT, DELETE, OPTIONS");
@@ -21,7 +21,7 @@ app.use(session({
                 }));
 
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://locagitlhost:27017/cs4550-summer-2018', { useNewUrlParser: true });
+mongoose.connect('mongodb://blau:cs4550@ds217452.mlab.com:17452/heroku_f05n9bn3\n', { useNewUrlParser: true });
 
 const userService = require('./services/user.service.server');
 userService(app);
