@@ -3,10 +3,14 @@ const enrollmentSchema = require('./enrollment.schema.server');
 
 const enrollmentModel = mongoose.model('EnrollmentModel', enrollmentSchema);
 
-findAllSectionsForStudent = studentId =>
-     enrollmentModel.find({student: studentId})
+findAllEnrollmentsForStudent = studentId => {
+    return enrollmentModel.find({student: studentId})
         .populate('section')
         .exec();
+}
+
+findEnrollmentByCredentials = (sectionId, studentId) =>
+    enrollmentModel.findOne({section: sectionId, student: studentId});
 
 enroll = enrollment =>
     enrollmentModel.create(enrollment);
@@ -15,7 +19,8 @@ unenroll = enrollmentId =>
     enrollmentModel.delete({_id: enrollmentId});
 
 module.exports = {
-    findAllSectionsForStudent,
+    findAllEnrollmentsForStudent,
+    findEnrollmentByCredentials,
     enroll,
     unenroll
 };

@@ -2,5 +2,6 @@ const mongoose = require('mongoose');
 module.exports = mongoose.Schema({
     courseId: String,
     title: String,
-    seats: Number
+    available: Number,
+    seats: Number,
 }, {collection: 'section'});

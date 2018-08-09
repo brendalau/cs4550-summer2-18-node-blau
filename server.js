@@ -15,10 +15,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(session({
-    resave: false,
-    saveUninitialized: true,
-    secret: 'any string'
-}));
+                    resave: false,
+                    saveUninitialized: true,
+                    secret: 'any string'
+                }));
 
 const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost:27017/cs4550-summer-2018', { useNewUrlParser: true });
@@ -30,8 +30,3 @@ const sectionService = require('./services/section.service.server');
 sectionService(app);
 
 app.listen(3000);
-
-
-
-
-

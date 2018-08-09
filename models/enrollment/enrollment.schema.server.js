@@ -7,6 +7,6 @@ module.exports = mongoose.Schema({
    student: {
        type: mongoose.Schema.Types.ObjectId,
        ref: 'UserModel'
-   }
-}, {collection: 'enrollments'});
+   },
+}, {collection: 'enrollment'});
 

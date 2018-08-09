@@ -6,7 +6,7 @@ const userModel = mongoose.model('UserModel', userSchema);
 findAllUsers = () =>
     userModel.find();
 
- findUserByUsername = username =>
+findUserByUsername = username =>
     userModel.findOne({username: username});
 
 findUserByCredentials = (username, password) =>
@@ -16,8 +16,7 @@ findUserById = userId =>
     userModel.findById(userId);
 
 findUserByIdExpanded = userId =>
-    userModel
-        .findById(userId)
+    userModel.findById(userId)
         .populate('sections')
         .exec()
 
@@ -45,7 +44,7 @@ module.exports = {
     findUserByCredentials,
     findUserById,
     findUserByIdExpanded,
-    createUser,s
+    createUser,
     updateUser,
     deleteUser
 }

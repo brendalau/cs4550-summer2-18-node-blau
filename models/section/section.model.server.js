@@ -29,11 +29,25 @@ deleteSection = (sectionId) => {
     return sectionModel.remove({_id: sectionId});
 }
 
+incrementSeats = (sectionId) => {
+    return sectionModel.update({_id: sectionId}, {
+        $inc: {available: +1}
+    });
+}
+
+decrementSeats = (sectionId) => {
+    return sectionModel.update({_id: sectionId}, {
+           $inc: {available: -1}
+       });
+}
+
 module.exports = {
     findAllSections,
     findAllSectionsForCourse,
     findSectionById,
     createSection,
     updateSection,
-    deleteSection
+    deleteSection,
+    incrementSeats,
+    decrementSeats
 };
