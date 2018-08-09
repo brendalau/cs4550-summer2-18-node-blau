@@ -21,7 +21,7 @@ app.use(session({
                 }));
 
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://blau:cs4550@ds217452.mlab.com:17452/heroku_f05n9bn3\n', { useNewUrlParser: true });
+mongoose.connect('mongodb://blau:cs4550@ds223509.mlab.com:23509/cs4550-summer-2018', { useNewUrlParser: true });
 
 const userService = require('./services/user.service.server');
 userService(app);
