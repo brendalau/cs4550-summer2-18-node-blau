@@ -87,8 +87,8 @@ module.exports = app => {
             });
     }
 
-    app.get ('/api/section', findAllSections);
-    app.get ('/api/course/:courseId/section', findAllSectionsForCourse);
+    app.get('/api/section', findAllSections);
+    app.get('/api/course/:courseId/section', findAllSectionsForCourse);
     app.get('/api/section/:sectionId', findSectionById);
     app.post('api/course/:courseId/section', createSection);
     app.put('/api/section/:sectionId', updateSection);
