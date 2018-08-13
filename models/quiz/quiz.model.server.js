@@ -10,6 +10,8 @@ findAllQuizzes = () =>
 
 findQuizById = quizId =>
     quizModel.findById(quizId)
+        .populate('questions')
+        .exec()
 
 updateQuiz = (quizId, newQuiz) =>
     quizModel.update({_id: quizId}, {
