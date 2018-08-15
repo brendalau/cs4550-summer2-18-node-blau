@@ -1,11 +1,8 @@
 module.exports = app => {
 
     const quizModel = require('../models/quiz/quiz.model.server');
-
-    createQuiz = (req, res) => {
-        quizModel.createQuiz(req.body)
-            .then(quiz => res.send(quiz))
-    }
+    const questionModel = require('../models/question/question.model.server');
+    const submissionModel = require('../models/submission/submission.model.server');
 
     findAllQuizzes = (req, res) => {
         quizModel.findAllQuizzes()
@@ -17,19 +14,31 @@ module.exports = app => {
             .then(quiz => res.send(quiz))
     }
 
-    updateQuiz = (req, res) => {
-        quizModel.updateQuiz(req.params['quizId'], req.body)
-            .then(status => res.send(status))
+    findAllQuestions = (req, res) => {
+        questionModel.findAllQuestions()
+            .then(questions => res.send(questions))
     }
 
-    deleteQuiz = (req, res) => {
-        quizModel.deleteQuiz(req.params['quizId'])
-            .then(status => res.send(status))
+    findQuestionById = (req, res) => {
+        questionModel.findQuestionById(req.params['questionId'])
+            .then(question => res.send(question))
     }
 
-    app.post('/api/quiz', createQuiz);
+    createSubmission = (req, res) => {
+        submissionModel.createSubmission(req.body)
+            .then(response => res.sendStatus(200));
+    }
+
+    findAllSubmissionsForStudent = (req, res) => {
+        submissionModel.findAllSubmissionsForStudent(req.params['quizId'])
+            .then(quiz => res.send(quiz))
+    }
+
     app.get('/api/quiz', findAllQuizzes);
     app.get('/api/quiz/:quizId', findQuizById);
-    app.put('/api/quiz/:quizId', updateQuiz);
-    app.delete('/api/quiz/:quizId', deleteQuiz);
+    app.get('/api/question', findAllQuestions);
+    app.get('/api/question/:questionId', findQuestionById);
+    app.post('/api/quiz/:quizId/submission', createSubmission);
+    app.get('/api/quiz/:quizId/submission', findAllSubmissionsForStudent);
+    app.get('/api/quiz/:quizId/submission/:submissionId', findAllSubmissionsForQuiz);
 };

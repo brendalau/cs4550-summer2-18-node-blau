@@ -32,7 +32,4 @@ sectionService(app);
 const quizService = require('./services/quiz.service.server');
 quizService(app);
 
-const questionService = require('./services/question.service.server');
-questionService(app);
-
 app.listen(process.env.PORT || 3000);

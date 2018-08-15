@@ -19,7 +19,6 @@ module.exports = app => {
     }
 
     createSection = (req, res) => {
-        console.log('create called');
         sectionModel.createSection(req.body)
             .then(response => res.sendStatus(200));
     }
