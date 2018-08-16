@@ -57,8 +57,8 @@ module.exports = app => {
             .then(response => res.sendStatus(200));
     }
 
-    app.get ('/api/currentUser', currentUser);
-    app.get ('/api/user', findAllUsers);
+    app.get('/api/currentUser', currentUser);
+    app.get('/api/user', findAllUsers);
     app.post('/api/login', login);
     app.post('/api/register', register);
     app.post('/api/logout', logout);
