@@ -29,9 +29,19 @@ module.exports = app => {
             .then(response => res.sendStatus(200));
     }
 
+    findSubmissionById = (req, res) => {
+        submissionModel.findSubmissionById(req.params['submissionId'])
+            .then(submission => res.send(submission));
+    }
+
     findAllSubmissionsForStudent = (req, res) => {
         submissionModel.findAllSubmissionsForStudent(req.params['quizId'])
-            .then(quiz => res.send(quiz))
+            .then(submissions => res.send(submissions));
+    }
+
+    findAllSubmissionsForQuiz = (req, res) => {
+        submissionModel.findAllSubmissionsForQuiz(req.params['quizId'])
+            .then(submissions => res.send(submissions));
     }
 
     app.get('/api/quiz', findAllQuizzes);
@@ -39,6 +49,7 @@ module.exports = app => {
     app.get('/api/question', findAllQuestions);
     app.get('/api/question/:questionId', findQuestionById);
     app.post('/api/quiz/:quizId/submission', createSubmission);
+    app.get('/api/quiz/:quizId/submission/:submissionId', findSubmissionById);
     app.get('/api/quiz/:quizId/submission', findAllSubmissionsForStudent);
-    app.get('/api/quiz/:quizId/submission/:submissionId', findAllSubmissionsForQuiz);
+    app.get('/api/quiz/:quizId/submissions', findAllSubmissionsForQuiz);
 };

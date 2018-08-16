@@ -3,42 +3,39 @@ const submissionSchema = require('./submission.schema.server');
 const submissionModel = mongoose.model('SubmissionModel', submissionSchema);
 
 createSubmission = submission =>
-    submissionModel.create(submission)
+    submissionModel.create(submission);
 
-findAllSubmissions = () =>
-    submissionModel.find()
-
-findAllSubmissionsForStudent = studentId =>
-    submissionModel.find({student: studentId})
-
-findSubmissionById = submissionId =>
-    submissionModel.findById(submissionId)
-        .populate('quiz')
+findSubmissionById = submissionId => {
+    return submissionModel.findById(submissionId)
+        .populate({
+          path: 'quiz',
+          populate: {
+              path: 'questions'
+          }
+         })
         .populate('student')
         .populate('answers')
-        .exec()
+        .populate('answers.question')
+        .exec();
+}
+
+findAllSubmissionsForStudent = studentId =>
+    submissionModel.find({student: studentId});
 
 findAllSubmissionsForQuiz = quizId =>
     submissionModel.find({quiz: quizId})
-        .populate('quiz')
+        .populate({
+          path: 'quiz',
+          populate: {
+            path: 'questions'
+          }
+        })
         .populate('student')
-        .populate('answers')
-        .exec()
-
-updateSubmission = (submissionId, newSubmission) =>
-    submissionModel.update({_id: submissionId}, {
-        $set: newSubmission
-    })
-
-deleteSubmission = submissionId =>
-    submissionModel.remove({_id: submissionId})
+        .exec();
 
 module.exports = {
     createSubmission,
-    findAllSubmissions,
-    findAllSubmissionsForStudent,
     findSubmissionById,
-    findAllSubmissionsForQuiz,
-    updateSubmission,
-    deleteSubmission
+    findAllSubmissionsForStudent,
+    findAllSubmissionsForQuiz
 }
